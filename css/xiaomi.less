@@ -1,0 +1,403 @@
+// 定义变量
+@main-width: 1226px; //主体宽度
+@top-height: 40px; //顶部导航宽度
+@top-color: #B0B0B0; //顶部文字颜色
+@mi-color: #FF6700; //小米主色
+
+body {
+    background-color: #f5f5f5;
+    min-width: @main-width;
+}
+
+//封装函数
+//设置高度和文字垂直居中
+.text-mid(@h) {
+    height: @h;
+    line-height: @h;
+}
+
+// 引入图标
+.iconfont(@c, @fs, @co) {
+    content: @c;
+    font-family: 'iconfont';
+    font-size: @fs;
+    color: @co;
+}
+
+// 文本样式
+.text(@col, @fsi) {
+    color: @col;
+    text-decoration: none;
+    font-size: @fsi;
+    //字体样式
+    font-family: 'Helvetica Neue', 'Helvetica', 'Arial', 'Microsoft Yahei', 'Hiragino Sans GB', 'Heiti SC', 'WenQuanYi Micro Hei', 'sans-serif';
+}
+
+//顶部导航栏
+.top-box {
+    background-color: #333;
+    height: @top-height;
+    .text-mid(@top-height);
+
+
+    .top {
+        width: @main-width;
+        margin: 0 auto; //导航栏居中
+        display: flex;
+
+
+        //导航栏左边
+        .top-left {
+            display: flex;
+            width: 769px;
+            .text-mid(@top-height);
+            justify-content: space-between; //分布空白空间
+
+            a {
+                display: block;
+            }
+
+        }
+
+        // 导航栏右边
+        .top-right {
+            .text-mid(@top-height);
+            width: 150px;
+            display: flex;
+            margin-left: auto; //使之占据弹性盒中剩余空白部分
+
+            a {
+                display: block;
+            }
+        }
+
+        // 最右边购物车
+        .shopping {
+            background-color: #424242;
+            height: @top-height;
+            width: 120px;
+            text-align: center;
+
+            // 购物车图标
+            &::before {
+                .iconfont('\e621', 18px, @top-color);
+                //使图标下移
+                position: relative;
+                top: 2px;
+            }
+        }
+
+
+
+        // 中间竖线
+        span {
+            color: #424242;
+            height: 3.23px;
+            margin: 0 4.2px;
+        }
+
+        a {
+            .text(@top-color, 12px);
+
+            &:hover {
+                color: #fff;
+            }
+        }
+
+
+
+    }
+}
+
+@top-nav-h: 100px; //主体导航栏高度
+
+// 主体设置
+main {
+    background-color: #fff;
+
+    .center {
+        width: @main-width;
+        margin: 0 auto;
+        // 主体三个大盒子竖直排列
+        display: flex;
+        flex-direction: column;
+
+
+        // 主体上部盒子
+        .top-nav {
+            display: flex;
+            height: @top-nav-h;
+
+            .logo {
+                display: flex;
+                align-items: center; // 辅轴对齐方式，设置img在logo中垂直居中，而align-content: center;只适用于容器中有多行元素
+
+                img {
+                    width: 56px;
+                }
+            }
+
+            // 中间导航栏
+            ul {
+                display: flex;
+                justify-content: space-between;
+                .text-mid(@top-nav-h); //文字垂直居中
+                width: 620px;
+                margin-left: auto; //分布空白位置
+
+                a {
+                    display: block;
+                    .text(#333, 16px);
+
+                    &:hover {
+                        color: @mi-color;
+                    }
+                }
+
+
+            }
+
+            // 右侧搜索框
+            .search {
+                width: 290px;
+                height: 48px;
+                border: #E0E0E0 1px solid;
+                margin-left: 80px;
+                margin-top: 24px;
+                display: flex;
+
+
+                input {
+                    width: 250px;
+                    height: 46px;
+                    border: 0;
+                }
+
+                // 搜索按钮
+                button {
+                    width: 48px;
+                    height: 48px;
+                    border: #E0E0E0 1px solid;
+                    background-color: #fff;
+
+                }
+
+                button:hover {
+                    background-color: @mi-color;
+
+                    span {
+                        color: #fff;
+                    }
+                }
+            }
+
+        }
+
+        // 主体中部盒子
+        .slideshow {
+            width: @main-width;
+            position: relative; //开启定位成为轮播图箭头的包含块
+
+            // 左侧导航栏
+            .left-list {
+                // 开启定位成为左侧导航右箭头的包含块
+                position: absolute;
+                width: 234px;
+                height: 420px;
+                padding: 20px 0;
+                background-color: rgba(105, 101, 101, .6);
+
+                a {
+                    display: block;
+                    .text-mid(42px);
+                    padding-left: 30px;
+                    .text(#fff, 14px);
+
+                    &:hover {
+                        background-color: @mi-color;
+                    }
+
+                    &::after {
+                        .iconfont('\e600', 14px, #fff);
+                        position: absolute;
+                        right: 20px;
+
+                    }
+                }
+            }
+
+            //  轮播图
+            .slideshow-image {
+                display: flex;
+                width: @main-width;
+                height: 460px;
+
+                img {
+                    height: 460px;
+                }
+
+            }
+
+            // 左右箭头公共样式
+            .left-arrow,
+            .right-arrow {
+                a {
+                    position: absolute; //定位调位置
+                    display: block;
+                    text-decoration: none;
+                    width: 40px;
+                    .text-mid(70px);
+                    // 在轮播图中垂直居中
+                    top: 50%;
+                    margin-top: -35px;
+                    font-size: 35px;
+                    color: #DADADA;
+
+                    &:hover {
+                        background-color: #605f5f;
+                        color: #fff;
+                    }
+
+                }
+            }
+
+            //左箭头位置
+            .left-arrow {
+                a {
+                    left: 234px;
+                }
+            }
+
+            // 右箭头位置
+            .right-arrow {
+                a {
+                    right: 0;
+                }
+            }
+
+            //小圆圈
+            .dots {
+                // 在轮播图中调定位 
+                position: absolute;
+                right: 30px;
+                bottom: 30px;
+                display: flex;
+
+
+                .dot {
+                    display: block;
+                    width: 6px;
+                    height: 6px;
+                    background-color: rgba(0, 0, 0, .4);
+                    border-radius: 50%; //设置为圆圈
+                    border: 2px solid;
+                    border-color: hsla(0, 0%, 100%, .3);
+                    margin: 0 5px;
+                    cursor: pointer; //鼠标悬浮光标类型，这是指针光标
+                    transition: background-color 0.3s; //过渡属性，持续时间0.3s
+
+                    &:hover {
+                        background-color: #F4F4F5;
+                        width: 6px;
+                        height: 6px;
+                        border: #989898 2px solid;
+
+                    }
+                }
+            }
+        }
+
+        // 主体下方盒子
+        .main-foot {
+            width: @main-width;
+            height: 170px;
+            margin: 15px 0 24px 0;
+            display: flex;
+            justify-content: space-between;
+
+            // 左边六个图标的盒子
+            .service {
+                width: 234px;
+                height: 170px;
+                background-color: #5F5750;
+                // 分为上下两盒子垂直排列，空白位置在上下两侧
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+
+                ul {
+                    // 设置每一行三个图标盒子均匀排列
+                    display: flex;
+                    justify-content: space-between;
+
+                    &:last-child::after {
+                        display: none;
+                    }
+
+                    li {
+                        width: 76px;
+                        height: 82px;
+                        // 让超链接图标和文本居中
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        position: relative;
+
+
+
+                        a {
+                            text-decoration: none;
+                            text-align: center;
+                            color: #CFCDCB;
+                            font-size: 25px;
+
+                            // 文本样式
+                            span {
+                                display: block;
+                                padding-top: 5px;
+                                font-size: 12px;
+                            }
+
+                            &:hover {
+                                color: #fff;
+                            }
+
+                            // 图标竖线框设置
+                            &::after {
+                                content: '';
+                                background-color: #6b6763;
+                                width: 1px;
+                                height: 68px;
+                                position: absolute;
+                                top: 6px;
+                                right: 0;
+
+                            }
+
+                        }
+
+
+                    }
+                }
+
+                // 图标横线框设置
+                .first-line {
+                    li::after {
+                        content: '';
+                        background-color: #6b6763;
+                        width: 65px;
+                        height: 1px;
+                        position: absolute;
+                        top: 80px;
+                        right: 8px;
+                    }
+                }
+            }
+
+            img {
+                height: 170px;
+
+            }
+        }
+    }
+}
