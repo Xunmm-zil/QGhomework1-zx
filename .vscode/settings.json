@@ -1,0 +1,18 @@
+{
+    "workbench.colorTheme": "One Dark Pro Darker",
+    "editor.fontSize": 18,
+    "files.autoSave": "afterDelay",
+    "explorer.confirmDelete": false,
+    "liveServer.settings.donotVerifyTags": true,
+    "liveServer.settings.donotShowInfoMsg": true,
+    "less.compile": {
+        
+
+
+
+        "compress": false, // true => remove surplus whitespace
+        "sourceMap": true, // true => generate source maps (.css.map files)
+        "out": true, // false => DON'T output .css files (overridable per-file, see below)
+        "purge": false,
+    }
+}

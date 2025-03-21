@@ -33,11 +33,15 @@ body {
     font-family: 'Helvetica Neue', 'Helvetica', 'Arial', 'Microsoft Yahei', 'Hiragino Sans GB', 'Heiti SC', 'WenQuanYi Micro Hei', 'sans-serif';
 }
 
+
+
 //顶部导航栏
 .top-box {
     background-color: #333;
     height: @top-height;
     .text-mid(@top-height);
+    position: relative;
+    z-index: 100;
 
 
     .top {
@@ -121,11 +125,15 @@ main {
         // 主体三个大盒子竖直排列
         display: flex;
         flex-direction: column;
+        position: relative;
 
 
         // 主体上部盒子
         .top-nav {
             display: flex;
+            position: relative;
+            background-color: #fff;
+            z-index: 100;
             height: @top-nav-h;
 
             .logo {
@@ -191,17 +199,74 @@ main {
                 }
             }
 
+
         }
+
+        // 下拉框
+        .drop {
+            position: absolute;
+            top: -130px;
+            height: 230px;
+            width: 100%;
+            z-index: 8;
+            background-color: #fff;
+            border-top: #aeaeae solid 0.6px;
+             
+
+            ul {
+                display: flex;
+                justify-content: center;
+                width: @main-width;
+                margin: 0 auto;
+
+                li {
+                    height: 230px;
+                    width: 204px;
+
+                    a {
+                        display: flex;
+                        flex-direction: column;
+                        align-items: center;
+                        justify-content: center;
+                        height: 230px;
+
+                        &:hover {
+                            color: #333;
+                        }
+
+                        img {
+                            width: 100px;
+                            height: 100px;
+                        }
+
+                        em {
+                            display: block;
+                            height: 14px;
+                            font-size: 14px;
+                        }
+
+                        span {
+                            font-size: 12px;
+                            color: @mi-color;
+                        }
+                    }
+                }
+            }
+
+        }
+
 
         // 主体中部盒子
         .slideshow {
             width: @main-width;
             position: relative; //开启定位成为轮播图箭头的包含块
 
+
             // 左侧导航栏
             .left-list {
                 // 开启定位成为左侧导航右箭头的包含块
                 position: absolute;
+                z-index: 5;
                 width: 234px;
                 height: 420px;
                 padding: 20px 0;
@@ -226,15 +291,57 @@ main {
                 }
             }
 
+            .block {
+                position: absolute;
+                top: 0;
+                left: 234px;
+                background-color: #fff;
+                height: 459px;
+                display: none;
+                // 元素竖直排列
+                flex-direction: column;
+                // 主轴自动换行
+                flex-wrap: wrap;
+                box-shadow: 0px 0px 20px hsla(0, 1%, 30%, 0.3);
+
+                li {
+                    height: 76px;
+                    width: 248px;
+                    display: flex;
+                    align-items: center;
+
+                    a {
+                        text-decoration: none;
+                        color: #333;
+                        font-size: 14px;
+                        padding-left: 20px;
+
+                        &:hover {
+                            color: @mi-color;
+                        }
+                    }
+                }
+            }
+
             //  轮播图
             .slideshow-image {
-                display: flex;
+                // display: flex;
                 width: @main-width;
                 height: 460px;
 
-                img {
-                    height: 460px;
+
+                li {
+                    position: absolute;
+                    opacity: 0;
+                    transition: 2s;
+
+
+                    img {
+                        height: 460px;
+                        width: @main-width;
+                    }
                 }
+
 
             }
 
@@ -304,6 +411,16 @@ main {
 
                     }
                 }
+
+                // 预制样式
+                .current {
+                    background-color: #F4F4F5;
+                    width: 6px;
+                    height: 6px;
+                    border: #989898 2px solid;
+
+                }
+
             }
         }
 
@@ -396,6 +513,11 @@ main {
 
             img {
                 height: 170px;
+                transition: 0.3s;
+
+                &:hover {
+                    box-shadow: 0px 0px 30px hsla(0, 1%, 30%, 0.3);
+                }
 
             }
         }

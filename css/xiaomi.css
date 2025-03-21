@@ -6,6 +6,8 @@ body {
   background-color: #333;
   height: 40px;
   line-height: 40px;
+  position: relative;
+  z-index: 100;
 }
 .top-box .top {
   width: 1226px;
@@ -68,9 +70,13 @@ main .center {
   margin: 0 auto;
   display: flex;
   flex-direction: column;
+  position: relative;
 }
 main .center .top-nav {
   display: flex;
+  position: relative;
+  background-color: #fff;
+  z-index: 100;
   height: 100px;
 }
 main .center .top-nav .logo {
@@ -123,12 +129,55 @@ main .center .top-nav .search button:hover {
 main .center .top-nav .search button:hover span {
   color: #fff;
 }
+main .center .drop {
+  position: absolute;
+  top: -130px;
+  height: 230px;
+  width: 100%;
+  z-index: 8;
+  background-color: #fff;
+  border-top: #aeaeae solid 0.6px;
+}
+main .center .drop ul {
+  display: flex;
+  justify-content: center;
+  width: 1226px;
+  margin: 0 auto;
+}
+main .center .drop ul li {
+  height: 230px;
+  width: 204px;
+}
+main .center .drop ul li a {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 230px;
+}
+main .center .drop ul li a:hover {
+  color: #333;
+}
+main .center .drop ul li a img {
+  width: 100px;
+  height: 100px;
+}
+main .center .drop ul li a em {
+  display: block;
+  height: 14px;
+  font-size: 14px;
+}
+main .center .drop ul li a span {
+  font-size: 12px;
+  color: #FF6700;
+}
 main .center .slideshow {
   width: 1226px;
   position: relative;
 }
 main .center .slideshow .left-list {
   position: absolute;
+  z-index: 5;
   width: 234px;
   height: 420px;
   padding: 20px 0;
@@ -155,13 +204,44 @@ main .center .slideshow .left-list a::after {
   position: absolute;
   right: 20px;
 }
-main .center .slideshow .slideshow-image {
+main .center .slideshow .block {
+  position: absolute;
+  top: 0;
+  left: 234px;
+  background-color: #fff;
+  height: 459px;
+  display: none;
+  flex-direction: column;
+  flex-wrap: wrap;
+  box-shadow: 0px 0px 20px hsla(0, 1%, 30%, 0.3);
+}
+main .center .slideshow .block li {
+  height: 76px;
+  width: 248px;
   display: flex;
+  align-items: center;
+}
+main .center .slideshow .block li a {
+  text-decoration: none;
+  color: #333;
+  font-size: 14px;
+  padding-left: 20px;
+}
+main .center .slideshow .block li a:hover {
+  color: #FF6700;
+}
+main .center .slideshow .slideshow-image {
   width: 1226px;
   height: 460px;
 }
-main .center .slideshow .slideshow-image img {
+main .center .slideshow .slideshow-image li {
+  position: absolute;
+  opacity: 0;
+  transition: 2s;
+}
+main .center .slideshow .slideshow-image li img {
   height: 460px;
+  width: 1226px;
 }
 main .center .slideshow .left-arrow a,
 main .center .slideshow .right-arrow a {
@@ -206,6 +286,12 @@ main .center .slideshow .dots .dot {
   transition: background-color 0.3s;
 }
 main .center .slideshow .dots .dot:hover {
+  background-color: #F4F4F5;
+  width: 6px;
+  height: 6px;
+  border: #989898 2px solid;
+}
+main .center .slideshow .dots .current {
   background-color: #F4F4F5;
   width: 6px;
   height: 6px;
@@ -275,5 +361,9 @@ main .center .main-foot .service .first-line li::after {
 }
 main .center .main-foot img {
   height: 170px;
+  transition: 0.3s;
+}
+main .center .main-foot img:hover {
+  box-shadow: 0px 0px 30px hsla(0, 1%, 30%, 0.3);
 }
 /*# sourceMappingURL=./xiaomi.css.map */
