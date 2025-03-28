@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/reset.css">
+    <link rel="stylesheet" href="./css/todo.css">
+    <script src="./js/jQuery.min.js"></script>
+    <script src="./js/todo.js"></script>
+    <title>ToDo</title>
+</head>
+
+<body>
+    <div class="top">
+        <h1>TODO</h1>
+        <div class="nowtime">2025年3月28日</div>
+    </div>
+    <div class="seek">
+        <input type="text" id="title">
+        <button type="search" id="search">搜索</button>
+        <button type="submit" id="submit">提交</button>
+    </div>
+    <div class="main">
+        <div class="content">
+            <div class="contop">
+                <button class="mkcp">全部标为已完成</button>
+                <div class="sentence">
+                    <img src="./img/爱心.png">
+                    <p>行动交给现在,结果交给时间 !</p>
+                </div>
+            </div>
+            <ul class="tdlt">
+                <li class="td">
+                    <div class="finish"><img src="./img/打钩.png" alt="打钩" style="display: none;"></div>
+                    <div class="test"><input type="text" value="好吃" class="txt"></div>
+                    <div class="day">12月25日<br>星期一</div>
+                    <div class="delete"><img src="./img/打叉.png" alt="打叉"></div>
+                    <div class="withdraw"><img src="./img/撤回.png" alt="撤回"></div>
+                </li>
+            </ul>
+        </div>
+        <div class="hotkey">
+            <button>开</button>
+            <ul class="option">
+                <li><input type="button" value="全部" class="all""></li>
+                <li><input type="button" value="进行中" class="onging"></li>
+                <li><input type="button" value="已完成" class="complete"></li>
+                <li><input type="button" value="回收站" class="recycle"></li>
+            </ul>
+            <ol class="opt">
+                <li><input type="button" value="全部标为已完成" class="mkcp"></li>
+                <li><input type="button" value="清除已完成" class="clcp"></li>
+                <li><input type="button" value="清除全部" class="clall"></li>
+            </ol>
+        </div>
+    </div>
+</body>
+
+</html>

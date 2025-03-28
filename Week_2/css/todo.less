@@ -1,0 +1,288 @@
+// 隐藏浏览器滚动条，防止页面宽度变化造成布局变化
+::-webkit-scrollbar {
+    display: none;
+}
+
+@mian-with: 680px;
+
+body {
+    // background: linear-gradient(to bottom, #FEB8DB,  #F891D0); //背景颜色渐变
+    background-color: rgb(236, 255, 251);
+    min-height: 100vh;
+}
+
+.text-mid(@h) {
+    height: @h;
+    line-height: @h;
+}
+
+.top {
+    .text-mid(80px);
+    padding: 30px 0 20px 0;
+    display: flex;
+    justify-content: center;
+    position: relative;
+
+    h1 {
+        font-size: 70px;
+
+    }
+
+    .nowtime {
+        position: absolute;
+        right: 10px;
+        top: 0;
+        font-size: 24px;
+    }
+}
+
+@btn-with: 120px;
+@test-fs: 22px;
+@bor-r: 12px;
+
+.seek {
+    height: 55px;
+    max-width: @mian-with;
+    border: black solid 2px;
+    border-radius: @bor-r; //边角变圆
+    margin: 0 auto;
+    display: flex;
+    overflow: hidden;
+    background-color: #fff;
+
+    input {
+        height: 52px;
+        width: @mian-with - @btn-with;
+        // 去除外边框和获取焦点时轮廓
+        border: none;
+        outline: none;
+        // 设置圆边
+        border-radius: @bor-r 0 0 @bor-r;
+        margin-left: 10px;
+        font-size: @test-fs;
+        background-color: transparent;
+    }
+
+    button {
+        width: @btn-with;
+        font-size: @test-fs;
+        border: none;
+        border-left: black solid 2px;
+        background-color: @btn-color;
+        margin-right: -2px;
+        cursor: pointer; //鼠标光标变化
+    }
+
+    #submit {
+        border-radius: 0 @bor-r @bor-r 0;
+    }
+
+    #search {
+        border-radius: 0;
+        background-color: #d5e2f0;
+    }
+}
+
+@btn-color: #f1c7c9;
+@vw-with: calc(50vw - (@mian-with/2));
+
+.main {
+    margin: 20px 0 0 @vw-with;
+    display: flex;
+    align-items: start;
+
+
+    .content {
+        max-width: @mian-with;
+        min-height: 400px;
+        display: flex;
+        flex-direction: column;
+        border: black solid 2px;
+        border-radius: @bor-r;
+        background-color: #fff;
+
+
+        .contop {
+            width: @mian-with;
+            height: 45px;
+            display: flex;
+            overflow: hidden;
+
+            button {
+                width: 120px;
+                margin: -2px 0 0 -2px; //去除边框重叠
+                background-color: @btn-color;
+                border-radius: @bor-r 0 0 0;
+                font-size: 14px;
+            }
+
+            .sentence {
+                width: @mian-with - 110px;
+                display: flex;
+                align-items: center;
+                border: black solid 2px;
+                margin: -2px -2px 0 -2px;
+
+                img {
+                    margin-left: 10px;
+                    width: 30px;
+                }
+
+                p {
+                    font-size: 18px;
+                    margin-left: 10px;
+                }
+            }
+        }
+
+        .tdlt {
+            margin-top: 22px;
+            display: flex;
+            flex-direction: column;
+
+            .td {
+                min-height: 60px;
+                width: 88%;
+                margin: 10px auto;
+                border: black 2px solid;
+                border-radius: @bor-r;
+                background-color: #f3effd;
+                display: flex;
+                align-items: center;
+
+                .finish {
+                    width: 32px;
+                    height: 32px;
+                    border: black 2px solid;
+                    border-radius: 50%;
+                    margin: 0 10px;
+
+                    img {
+                        width: 35px;
+                        display: none;
+                    }
+
+                    &:hover {
+                        background-color: #b4bee1;
+
+                    }
+                }
+
+                .test {
+                    width: 70%;
+                    display: block;
+                    margin: 5px 0;
+
+                    input {
+                        display: block;
+                        border: none;
+                        outline: none;
+                        font-size: 18px;
+                        width: 100%;
+                        min-height: 18px;
+                        background-color: #f3effd;
+                    }
+                }
+
+                .day {
+                    width: 13%;
+                    text-align: center; //文字水平居中
+                }
+
+                .delete {
+                    .finish;
+
+                    img {
+                        display: block;
+                    }
+                }
+
+                .withdraw {
+
+                    img {
+                        width: 35px;
+                        transition: 0.3s;
+
+                        &:hover {
+                            width: 40px;
+                        }
+                    }
+
+
+                }
+            }
+
+            .fnsh {
+                background-color: #dfecff;
+
+                .finish {
+                    background-color: #b4bee1;
+
+                    img {
+                        display: block;
+                    }
+                }
+
+                .test {
+                    input {
+                        color: #797a7bf7;
+                        background-color: #dfecff;
+                    }
+                }
+            }
+        }
+
+    }
+
+    @l-with: 130px;
+
+    .hotkey {
+        margin-left: 20px;
+        width: @l-with;
+        display: flex;
+        flex-direction: column;
+
+
+        button {
+            height: 40px;
+            width: @l-with;
+            border-radius: @bor-r @bor-r 0 0;
+            background-color: @btn-color;
+        }
+
+        .option {
+            input {
+                height: 40px;
+                width: @l-with;
+                margin-top: -2px;
+                background-color: #fff;
+
+                &:hover {
+                    background-color: #d5e2f0;
+                }
+            }
+        }
+
+        ol {
+            li:last-child {
+                input {
+                    border-radius: 0 0 @bor-r @bor-r;
+                }
+            }
+        }
+
+        .opt {
+            input {
+                height: 40px;
+                width: @l-with;
+                margin-top: -2px;
+                background-color: #fff;
+
+                &:hover {
+                    background-color: #f1d9c7;
+                }
+            }
+        }
+
+    }
+}
