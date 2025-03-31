@@ -4,9 +4,9 @@ $(function () {
     })
     $(".nowtime").text(getTimer());
     // 显示现在的日期
-    setInterval(function(){
+    setInterval(function () {
         $(".nowtime").text(getTimer());
-    },1000)
+    }, 1000)
     // 点击右侧按钮的通用样式
     $(document).ready(function () {
         $(".option").on("click", "li", function () {
@@ -21,8 +21,17 @@ $(function () {
         if (event.keyCode === 13) {
             // 获取本地存储数据
             var local = getDater();
+            // 记录当前时间作为创建时间
+            const createTime = new Date().getTime();
             //  把最新的数据追加到local里
-            local.push({ title: $(this).val(), done: false });
+            local.push({ title: $(this).val(), done: false, day: getDay(), urgent: false, createTime });
+            // 找到加急事项的第一个索引
+            var urgentIndex = local.findIndex(item => item.urgent === true);
+            // 更改位置
+            if (urgentIndex !== -1) {
+                // 插入到加急事项之后
+                local.splice(urgentIndex, 0, local.pop());
+            }
             // 把local保存到本地存储
             saveDate(local);
             // 把数据渲染到页面中
@@ -35,8 +44,17 @@ $(function () {
     $("#submit").on("click", function () {
         // 获取本地存储数据
         var local = getDater();
+        // 记录当前时间作为创建时间
+        const createTime = new Date().getTime();
+        // 找到加急事项的最后一个索引
+        var urgentIndex = local.findIndex(item => item.urgent === true);
         //  把最新的数据追加到local里
-        local.push({ title: $("#title").val(), done: false });
+        local.push({ title: $("#title").val(), done: false, day: getDay(), urgent: false, createTime });
+        // 更改位置
+        if (urgentIndex !== -1) {
+            // 插入到加急事项之后
+            local.splice(urgentIndex, 0, local.pop());
+        }
         // 把local保存到本地存储
         saveDate(local);
         // 把数据渲染到页面中
@@ -57,7 +75,10 @@ $(function () {
                 // 先清空原来的元素
                 $(".tdlt").empty();
                 // 获取完成状态添加相应类名
-                if (local[i].done == true) {
+                if (local[i].urgent == true) {
+                    var cla = "urg";
+                }
+                else if (local[i].done == true) {
                     var cla = "fnsh";
                 } else {
                     cla = "";
@@ -65,8 +86,9 @@ $(function () {
                 // 渲染数据
                 $(".tdlt").prepend("<li class='td " + cla + "'>" + "<div class='finish' ><img src='./img/打钩.png' alt='打钩'  ></div>" +
                     "<div class='test'><input type='text' value='" + local[i].title + "' class='txt'></div>" +
-                    "<div class='day'> " + getDay() + "</div>" +
+                    "<div class='day'> " + local[i].day + "</div>" +
                     "<div class='delete' id=" + i + " ><img src='./img/打叉.png' alt='打叉'></div>" +
+                    "<div class='urgent iconfont'>&#xe643;</div>" +
                     "</li>");
             }
         }
@@ -100,12 +122,69 @@ $(function () {
         flag = 4;
         loads();
     })
+    // 加急按钮
+    $(".tdlt").on("click", ".urgent", function () {
+        if (flag == 1 || flag == 2 || flag == 3) {
+            // 读取本地存储
+            var date = getDater();
+            // 拿索引号
+            var index = $(this).siblings(".delete").attr("id");
+            // 如果是已完成的改成未完成
+            if (date[index].done == true) {
+                date[index].done = false;
+            }
+            //  修改属性重新排列
+            if (date[index].urgent == true) {
+                // 撤销加急
+                date[index].urgent = false;
+                // 保存数据
+                var urg = date[index];
+                // 删除本地存储原层级中的
+                date.splice(index, 1);
+                // 找到按创建时间排序的插入位置
+                let insertIndex = 0;
+                for (let i = 0; i < date.length; i++) {
+                    if (date[i].createTime > urg.createTime) {
+                        insertIndex = i;
+                        break;
+                    }
+                    insertIndex = i + 1;
+                }
+                // 插回原层级
+                date.splice(insertIndex, 0, urg);
+                // 保存本地存储
+                saveDate(date);
+                // 渲染页面
+                flagload();
+            } else {
+                // 加急
+                date[index].urgent = true;
+                // 保存数据
+                var urg = date[index];
+                // 删除本地存储原层级中的
+                date.splice(index, 1);
+                // 在最高层级插入
+                date.splice(date.length, 0, urg);
+                // 保存本地存储
+                saveDate(date);
+                // 渲染页面
+                flagload();
+            }
+
+        } else {
+            alert("请先从回收站恢复");
+        }
+
+    })
     // 给删除按钮绑定点击事件，动态创建的元素得通过on事件委托给已存在的祖先元素才能绑定
     $(".tdlt").on("click", ".delete", function () {
         // 读取本地存储
         var date = getDater();
         // 获取点击的对象索引号
         var index = $(this).attr("id");
+        if (date[index].urgent == true) {
+            date[index].urgent = false;
+        }
         // 获取会话存储
         var ssenion = getSdate();
         // 把对象添加进去
@@ -127,8 +206,25 @@ $(function () {
         var idx = $(this).attr("id");
         // 读取本地存储
         var date = getDater();
-        // 把对象添加进本地存储
-        date.push(ssenion[idx]);
+        // 找到按创建时间排序的插入位置
+        let insertIndex = 0;
+        for (let i = 0; i < date.length; i++) {
+            if (date[i].createTime > ssenion[idx].createTime) {
+                insertIndex = i;
+                break;
+            }
+            insertIndex = i + 1;
+        }
+        // 找到加急事项的第一个索引
+        var urgentIndex = date.findIndex(item => item.urgent === true);
+        // 判断插入位置
+        if ((urgentIndex !== -1) && (insertIndex > urgentIndex)) {
+            // 插入到加急事项之后
+            date.splice(urgentIndex, 0, ssenion[idx]);
+        } else {
+            // 根据时间原索引插入
+            date.splice(insertIndex, 0, ssenion[idx]);
+        }
         // 保存本地存储
         saveDate(date);
         // 删除会话存储中的
@@ -151,6 +247,32 @@ $(function () {
                 date[index].done = false;
             } else {
                 date[index].done = true;
+                if (date[index].urgent == true) {
+                    date[index].urgent = false;
+                    // 保存数据
+                    var urg = date[index];
+                    // 删除本地存储原层级中的
+                    date.splice(index, 1);
+                    // 找到按创建时间排序的插入位置
+                    let insertIndex = 0;
+                    for (let i = 0; i < date.length; i++) {
+                        if (date[i].createTime > urg.createTime) {
+                            insertIndex = i;
+                            break;
+                        }
+                        insertIndex = i + 1;
+                    }// 找到加急事项的第一个索引
+                    var urgentIndex = date.findIndex(item => item.urgent === true);
+                    // 判断插入位置
+                    if ((urgentIndex !== -1) && (insertIndex > urgentIndex)) {
+                        // 插入到加急事项之后
+                        date.splice(urgentIndex, 0, urg);
+                    } else {
+                        // 根据时间原索引插入
+                        date.splice(insertIndex, 0, urg);
+                    }
+                     
+                }
             }
             // 保存本地存储
             saveDate(date);
@@ -181,6 +303,31 @@ $(function () {
         // 遍历数据改为已完成
         $.each(date, function (i, n) {
             date[i].done = true;
+            if (date[i].urgent == true) {
+                date[i].urgent = false;
+                // 保存数据
+                var urg = date[i];
+                // 删除本地存储原层级中的
+                date.splice(i  , 1);
+                // 找到按创建时间排序的插入位置
+                let insertIndex = 0;
+                for (let i = 0; i < date.length; i++) {
+                    if (date[i].createTime > urg.createTime) {
+                        insertIndex = i;
+                        break;
+                    }
+                    insertIndex = i + 1;
+                }// 找到加急事项的第一个索引
+                var urgentIndex = date.findIndex(item => item.urgent === true);
+                // 判断插入位置
+                if ((urgentIndex !== -1) && (insertIndex > urgentIndex)) {
+                    // 插入到加急事项之后
+                    date.splice(urgentIndex, 0, urg);
+                } else {
+                    // 根据时间原索引插入
+                    date.splice(insertIndex, 0, urg);
+                }         
+            }
         })
         // 保存本地存储
         saveDate(date);
@@ -215,6 +362,10 @@ $(function () {
         var date = getDater();
         //倒序遍历数组删除，正序会因删除元素混乱
         for (var i = date.length - 1; i >= 0; i--) {
+            // 修改加急属性
+            if (date[i].urgent == true) {
+                date[i].urgent = false;
+            }
             // 获取会话存储
             var ssenion = getSdate();
             // 把对象添加进去
@@ -279,7 +430,10 @@ $(function () {
         // 遍历数据
         $.each(date, function (i, n) {
             // 获取完成状态添加相应类名
-            if (date[i].done == true) {
+            if (date[i].urgent == true) {
+                var cla = "urg";
+            }
+            else if (date[i].done == true) {
                 var cla = "fnsh";
             } else {
                 cla = "";
@@ -287,8 +441,9 @@ $(function () {
             // 渲染数据在最上面
             $(".tdlt").prepend("<li class='td " + cla + "'>" + "<div class='finish' ><img src='./img/打钩.png' alt='打钩'  ></div>" +
                 "<div class='test'><input type='text' value='" + n.title + "' class='txt'></div>" +
-                "<div class='day'> " + getDay() + "</div>" +
+                "<div class='day'> " + n.day + "</div>" +
                 "<div class='delete' id=" + i + " ><img src='./img/打叉.png' alt='打叉'></div>" +
+                "<div class='urgent iconfont'>&#xe643;</div>" +
                 "</li>");
         })
     }
@@ -301,15 +456,19 @@ $(function () {
         // 渲染数据
         $.each(ssenion, function (j, m) {
             // 获取完成状态添加相应类名
-            if (ssenion[j].done == true) {
+            if (ssenion[j].urgent == true) {
+                var cla = "urg";
+            }
+            else if (ssenion[j].done == true) {
                 var cla = "fnsh";
             } else {
                 cla = "";
             }
             $(".tdlt").prepend("<li class='td " + cla + "' >" + "<div class='finish' ><img src='./img/打钩.png' alt='打钩'  ></div>" +
                 "<div class='test'><input type='text' value='" + m.title + "' class='txt'></div>" +
-                "<div class='day'> " + getDay() + "</div>" +
+                "<div class='day'> " + m.day + "</div>" +
                 "<div class='withdraw' id=" + j + "><img src='./img/撤回.png' alt='撤回' ></div>" +
+                "<div class='urgent iconfont'>&#xe643;</div>" +
                 "</li>");
         })
     }
@@ -323,7 +482,7 @@ $(function () {
         return month + '月' + dates + '日' + "<br>" + days[day];
     }
 
-    // 时间函数
+    // 实时时间函数
     function getTimer() {
         var time = new Date;
         var h = time.getHours();
@@ -338,7 +497,7 @@ $(function () {
         var dates = date.getDate();
         var day = date.getDay();
         var days = ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'];
-        return year + '年' + month + '月' + dates + '日'+ days[day] + h + ':' + m + ':' + s;
+        return year + '年' + month + '月' + dates + '日' + days[day] + h + ':' + m + ':' + s;
     }
     //  读取会话存储的数据函数
     function getSdate() {
@@ -368,8 +527,9 @@ $(function () {
                 // 渲染数据已完成的
                 $(".tdlt").prepend("<li class='td fnsh'>" + "<div class='finish' ><img src='./img/打钩.png' alt='打钩'  ></div>" +
                     "<div class='test'><input type='text' value='" + n.title + "' class='txt'></div>" +
-                    "<div class='day'> " + getDay() + "</div>" +
+                    "<div class='day'> " + n.day + "</div>" +
                     "<div class='delete' id=" + i + " ><img src='./img/打叉.png' alt='打叉'></div>" +
+                    "<div class='urgent iconfont'>&#xe643;</div>" +
                     "</li>");
             } else {
                 return;
@@ -386,11 +546,18 @@ $(function () {
         $.each(date, function (i, n) {
             // 获取完成状态
             if (date[i].done == false) {
+                if (date[i].urgent == true) {
+                    var cla = "urg";
+                }
+                else {
+                    cla = "";
+                }
                 // 渲染数据已完成的
-                $(".tdlt").prepend("<li class='td'>" + "<div class='finish' ><img src='./img/打钩.png' alt='打钩'  ></div>" +
+                $(".tdlt").prepend("<li class='td " + cla + "'>" + "<div class='finish' ><img src='./img/打钩.png' alt='打钩'  ></div>" +
                     "<div class='test'><input type='text' value='" + n.title + "' class='txt'></div>" +
-                    "<div class='day'> " + getDay() + "</div>" +
+                    "<div class='day'> " + n.day + "</div>" +
                     "<div class='delete' id=" + i + " ><img src='./img/打叉.png' alt='打叉'></div>" +
+                    "<div class='urgent iconfont'>&#xe643;</div>" +
                     "</li>");
             } else {
                 return;
@@ -409,6 +576,5 @@ $(function () {
             loads();
         }
     }
-
 
 })

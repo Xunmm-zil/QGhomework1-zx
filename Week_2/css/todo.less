@@ -2,7 +2,6 @@
 ::-webkit-scrollbar {
     display: none;
 }
-
 @mian-with: 680px;
 
 body {
@@ -207,10 +206,19 @@ body {
                             width: 40px;
                         }
                     }
-
-
+                }
+                .urgent{
+                    color: #313131;
+                    font-size: 20px;
+                    position: relative;
+                    top: 18px;
+                    cursor: pointer;
+                    &:hover{
+                        color: #ba040e;
+                    }
                 }
             }
+            
 
             .fnsh {
                 background-color: #dfecff;
@@ -227,6 +235,25 @@ body {
                     input {
                         color: #797a7bf7;
                         background-color: #dfecff;
+                    }
+                }
+            }
+            .urg {
+                background-color: #fad5b8;
+                .finish {
+                    &:hover{
+                        background-color: #e7b996;
+                    }
+                }
+                .test {
+                    input {
+                        background-color: #fad5b8;
+                    }
+                }
+                .urgent{
+                    color: #ba040e;
+                    &:hover{
+                        color:  #313131;
                     }
                 }
             }

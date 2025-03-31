@@ -171,6 +171,16 @@ body {
 .main .content .tdlt .td .withdraw img:hover {
   width: 40px;
 }
+.main .content .tdlt .td .urgent {
+  color: #313131;
+  font-size: 20px;
+  position: relative;
+  top: 18px;
+  cursor: pointer;
+}
+.main .content .tdlt .td .urgent:hover {
+  color: #ba040e;
+}
 .main .content .tdlt .fnsh {
   background-color: #dfecff;
 }
@@ -183,6 +193,21 @@ body {
 .main .content .tdlt .fnsh .test input {
   color: #797a7bf7;
   background-color: #dfecff;
+}
+.main .content .tdlt .urg {
+  background-color: #fad5b8;
+}
+.main .content .tdlt .urg .finish:hover {
+  background-color: #e7b996;
+}
+.main .content .tdlt .urg .test input {
+  background-color: #fad5b8;
+}
+.main .content .tdlt .urg .urgent {
+  color: #ba040e;
+}
+.main .content .tdlt .urg .urgent:hover {
+  color: #313131;
 }
 .main .hotkey {
   margin-left: 20px;
