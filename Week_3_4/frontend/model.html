@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./model.css">
+    <script src="./model.js"></script>
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- 背景遮罩层 -->
+    <div class="overlay" id="overlay"></div>
+    <!-- 模型权重表单 -->
+    <form id="moform" class="moform">
+        <div class="moname">OpenAI</div>
+        <div>weigth:<br>
+            <input type="text" id="weight">
+        </div>
+        <div>qustion:<br>
+            <input type="text" id="question">
+        </div>
+        <button id="cancel-button">取消</button>
+        <button id="confirm-button">确认</button>
+    </form>
+    <!-- 上传模型表单 -->
+    <form id="upmoform" class="upmoform">
+        <div class="uptl">上传模型</div>
+        <div>modelName:<br>
+            <input type="text" id="modelName">
+        </div>
+        <div>modelUrl:<br>
+            <input type="text" id="modelUrl">
+        </div>
+        <div>简介:<br>
+            <textarea name="introduce" id=""></textarea>
+        </div>
+        <button id="cancel-button">取消</button>
+        <button id="confirm-button">确认</button>
+    </form>
+    <!-- 运行项目菜单 -->
+    <form id="run" class="run">
+        <div>项目名称:<br>
+            <input type="text" id="itemname" class="itemname">
+        </div>
+        <div>请输入您的需求:<br>
+            <textarea name="content" id="content"></textarea>
+        </div>
+        <div class="imgcontain">上传图片:<br>
+            <label for="image" class="image">
+                <input type="file" id="image" style="display: none;">
+                <div class="puls" id="puls">+</div>
+            </label>
+        </div>
+        <button id="cancel-button">取消</button>
+        <button id="confirm-button">运行</button>
+    </form>
+    <!-- 模型详细信息 -->
+    <div class="modeldetails" id="modeldetails">
+        <!-- <div class="detail">
+            <h2 class="modelName">OpenAI</h2>
+            <a href="https://chat.openai.com/">https://chat.openai.com/</a>
+            <div class="introduce">由OpenAI开发,以强⼤的⾃然语⾔处理能⼒著称,⽀持多任务处理,⼴泛应⽤于对话、创作和代码⽣成,代表作为GPT系列模型</div>
+        </div>
+        <div class="detail">
+            <h2 class="modelName">Deepseek</h2>
+            <a href="https://chat.openai.com/">https://chat.deepseek.com/</a>
+            <div class="introduce">深度求索公司推出的开源⼤模型，专注⾼效推理与⻓⽂本处理,⽀持128K上下⽂,适合代码、数学及复杂逻辑任务。</div>
+        </div>
+        <div class="detail">
+            <h2 class="modelName">腾讯元宝</h2>
+            <a href="https://chat.openai.com/">https://yuanbao.tencent.com/</a>
+            <div class="introduce">腾讯推出的企业级⼤模型，强调安全与落地应⽤，⽀持多模态交互，适⽤于⾦融、医疗等⾏业场景优化。</div>
+        </div> -->
+    </div>
+    <main>
+        <!-- 项目栏 -->
+        <div id="item-list" class="item-list">
+            <div class="title">
+                <h2>项目</h2><img src="./img/删 除.png" alt="">
+            </div>
+            <div class="item">
+                <input type="button" value="添加项目" id="add" class="add">
+            </div>
+            <div class="item">
+                <input type="button" value="视网膜">
+            </div>
+            <div class="item">
+                <input type="button" value="影评">
+            </div>
+        </div>
+        <!-- 模型栏 -->
+        <div id="model-library" class="model-library">
+            <div class="title">
+                <h2>模型库</h2><img src="./img/删 除.png" alt="" id="deletemodel">
+            </div>
+            <div class="uploadmodel">
+                <input type="button" value="上传模型" id="upload">
+            </div>
+            <!-- <div class="model" data-name="OpenAI">
+                <input type="button" value="OpenAI"  draggable="true">
+            </div>
+            <div class="model" data-name="DeepSeek">
+                <input type="button" value="DeepSeek">
+            </div>
+            <div class="model" data-name="腾讯元宝">
+                <input type="button" value="腾讯元宝">
+            </div> -->
+        </div>
+        <!-- 层级栏 -->
+        <div id="level-library" class="level-library">
+            <h2>层级</h2>
+            <div id="addlevel" class="addlevel">
+                <input type="button" value="增加层级">
+            </div>
+            <div id="levels" class="levels">
+                <!-- <div class="level">
+                    <div class="lel">层级1</div>
+                    <div class="level-list">
+                        <input type="button" value="OpenAI" class="lemo">
+                        <input type="button" value="腾讯元宝" class="lemo">
+                        <input type="button" value="OpenAI" class="lemo">
+                    </div>     
+ -->
+
+            </div>
+
+        </div>
+    </main>
+</body>
+
+</html>

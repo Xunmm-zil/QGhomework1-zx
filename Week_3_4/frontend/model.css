@@ -1,0 +1,422 @@
+body {
+    background-color: rgb(248, 249, 237);
+}
+
+/* 背景遮罩层样式 */
+.overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 100;
+}
+
+/* 弹出菜单样式 */
+.moform {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    /* 移动自身元素的50% */
+    transform: translate(-50%, -50%);
+    background-color: #f9f9f9;
+    border: 1px solid #ccc;
+    border-radius: 15px;
+    padding: 10px;
+    z-index: 200;
+    width: 300px;
+    height: 200px;
+
+}
+
+.moform .moname {
+    text-align: center;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.moform input {
+    width: 80%;
+    height: 25px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+/* 取消按钮 */
+#cancel-button {
+    position: absolute;
+    right: 76px;
+    bottom: 14px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    height: 30px;
+    width: 50px;
+}
+
+/* 确定按钮 */
+#confirm-button {
+    position: absolute;
+    right: 10px;
+    bottom: 14px;
+    border: none;
+    border-radius: 4px;
+    height: 30px;
+    width: 50px;
+    color: #fff;
+    background-color: #1977FD;
+}
+
+/* 上传模型表单 */
+.upmoform {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    /* 移动自身元素的50% */
+    transform: translate(-50%, -50%);
+    background-color: #f9f9f9;
+    border: 1px solid #ccc;
+    border-radius: 15px;
+    padding: 10px;
+    z-index: 200;
+    width: 500px;
+    height: 400px;
+}
+
+.uptl {
+    text-align: center;
+    font-weight: bold;
+    margin-bottom: 10px;
+    font-size: 20px;
+}
+
+.upmoform input {
+    width: 90%;
+    height: 30px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.upmoform textarea {
+    resize: none;
+    width: 90%;
+    height: 100px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+/* 运行项目表单 */
+.run {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    /* 移动自身元素的50% */
+    transform: translate(-50%, -50%);
+    background-color: #f9f9f9;
+    border: 1px solid #ccc;
+    border-radius: 15px;
+    padding: 10px;
+    z-index: 200;
+    width: 500px;
+    height: 400px;
+}
+
+.run .itemname {
+    width: 90%;
+    height: 30px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.run textarea {
+    resize: none;
+    width: 90%;
+    height: 100px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.run .image {
+    width: 80px;
+    height: 90px;
+    background-color: #eaeaea;
+    background-size: 80px auto;
+    background-repeat: no-repeat;
+    background-position:center;
+    display: flex;
+    border-radius: 5px;
+    justify-content: center;
+    align-items: center;
+}
+ 
+.puls {
+    font-size: 28px;
+    font-weight: 300;
+}
+
+.overlay.show,
+.moform.show,
+.upmoform.show,
+.run.show {
+    display: block;
+}
+
+/* 模型的详细信息 */
+.modeldetails .detail {
+    width: 280px;
+    height: 96%;
+    padding: 10px;
+    position: absolute;
+    left: -300px;
+    background-color: #ebeaeb;
+    border-radius: 6px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 20px;
+}
+
+.modeldetails .detail a {
+    /* text-decoration: none; */
+    color: #000;
+    margin: 20px 0;
+}
+
+.modeldetails .detail div {
+    padding: 30px 10px;
+    background-color: #c3c7ce;
+    /* border: 1px solid #777676; */
+    border-radius: 8px;
+    margin-top: 40px;
+}
+
+main {
+    width: 64%;
+    margin: 0 auto;
+    background-color: #fff;
+    min-height: 920px;
+    display: flex;
+}
+
+/* 项目栏 */
+.item-list {
+    width: 20%;
+    border-right: 1px solid #ccc;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+/* 项目盒子 */
+.item {
+    height: 70px;
+    width: 100%;
+    border: 1px #ccc solid;
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+/* 项目按钮 */
+.item input {
+    width: 80%;
+    height: 60%;
+    background-color: #cfedfa;
+    border-radius: 8px;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.item input:hover {
+    box-shadow: 0 0 12px rgba(98, 86, 86, 0.5);
+}
+
+/* 添加项目 */
+.add {
+    background-color: #95b9d3;
+}
+
+.add:hover {
+    box-shadow: 0 0 12px rgba(98, 86, 86, 0.5);
+}
+
+/* 模型栏 */
+.model-library {
+    width: 20%;
+    border-right: 1px solid #ccc;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+
+}
+
+/* 模型盒子 */
+.model {
+    height: 70px;
+    width: 100%;
+    border: 1px #ccc solid;
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10px;
+    position: relative;
+
+}
+
+/* 模型按钮 */
+.model input {
+    width: 80%;
+    height: 60%;
+    background-color: #f9dbec;
+    border-radius: 8px;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+
+}
+
+.model input:hover {
+    box-shadow: 0 0 12px rgba(98, 86, 86, 0.5);
+}
+
+/* 上传模型按钮 */
+.uploadmodel {
+    height: 70px;
+    width: 100%;
+    border: 1px #ccc solid;
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10px;
+    position: relative;
+}
+
+.uploadmodel input {
+    width: 80%;
+    height: 60%;
+    background-color: #dc9f9f;
+    border-radius: 8px;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.uploadmodel input:hover {
+    box-shadow: 0 0 12px rgba(98, 86, 86, 0.5);
+}
+
+/* 标题和删除 */
+main .title {
+    position: relative;
+}
+
+main .title img {
+    height: 22px;
+    position: absolute;
+    right: 10px;
+    bottom: 22px;
+    z-index: 100;
+}
+
+/* 层级栏 */
+.level-library {
+    width: 60%;
+    padding: 20px;
+}
+
+
+/* 增加层级盒子 */
+.addlevel {
+    height: 70px;
+    width: 100%;
+    border: 1px #ccc solid;
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+/* 增加层级按钮 */
+.addlevel input {
+    width: 80%;
+    height: 60%;
+    background-color: #dec39e;
+    border-radius: 8px;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.addlevel input:hover {
+    box-shadow: 0 0 12px rgba(98, 86, 86, 0.5);
+}
+
+/* 装所有层级的盒子 */
+.levels {
+    width: 100%;
+    display: grid;
+    /* 创建两列，每列宽度相等 */
+    grid-template-columns: repeat(2, 1fr);
+    /* 单元格之间的间距 */
+    gap: 20px;
+    /* grid-auto-flow: dense; */
+
+}
+
+/* 每个层级的盒子*/
+.level {
+    min-height: 100px;
+    width: 80%;
+    border: 1px #ccc solid;
+    border-radius: 8px;
+    padding: 10px;
+    margin-top: 20px;
+    z-index: 5;
+}
+
+/* 层级标题 */
+.level .lel {
+    height: 40px;
+    line-height: 40px;
+    border-bottom: 1px #ccc solid;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+/* 层级中的模型 */
+.level-list {
+    width: 100%;
+    margin-top: 8px;
+    /* border: 1px #ccc solid; */
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 2;
+}
+
+.level-list input {
+    width: 100%;
+    height: 42px;
+    margin: 8px;
+    background-color: #f0e0ca;
+    border-radius: 8px;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+}
+.level-list input:hover{
+    box-shadow: 0 0 12px rgba(98, 86, 86, 0.5);
+}
+ 
