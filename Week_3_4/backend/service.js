@@ -17,7 +17,7 @@ app.use(express.static('../frontend'));
 // const pool = mysql.createPool({
 //     host: '127.0.0.1', //数据库IP地址
 //     user: 'root', //登录数据库的账号
-//     password: '446699@xX',
+//     password: '',
 //     database: 'model' //操作的数据库名称
 // })
 
